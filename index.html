@@ -5,259 +5,535 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="용인에서 명상, 독서, 필사, 수영, 필라테스, 건강한 집밥으로 나를 돌보는 일상을 기록합니다.">
   <title>오늘도, 나를 돌봅니다 | 우정의 라이프 노트</title>
+  
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Maru+Buri:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --cream:#f7f3ea;
-      --paper:#fffdf8;
-      --sage:#8b9b83;
-      --deep:#34443b;
-      --terracotta:#c98262;
-      --line:#ded8cb;
-      --text:#3e403d;
-      --muted:#77766f;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--text);
-      background:var(--cream);
-      font-family: "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
-      line-height:1.7;
-    }
-    a{text-decoration:none;color:inherit}
-    .wrap{width:min(1100px,92%);margin:auto}
-
-    header{
-      position:sticky;top:0;z-index:10;
-      background:rgba(247,243,234,.9);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(222,216,203,.8);
-    }
-    nav{
-      height:68px;display:flex;align-items:center;justify-content:space-between;
-    }
-    .logo{font-family:Georgia,serif;font-size:1.2rem;color:var(--deep);letter-spacing:.04em}
-    .menu{display:flex;gap:25px;font-size:.88rem;color:var(--muted)}
-    .menu a:hover{color:var(--terracotta)}
-
-    .hero{
-      min-height:calc(100vh - 68px);
-      display:grid;grid-template-columns:1.05fr .95fr;
-      gap:50px;align-items:center;padding:70px 0;
-    }
-    .eyebrow{
-      color:var(--terracotta);font-size:.78rem;letter-spacing:.16em;
-      font-weight:700;margin-bottom:15px;
-    }
-    h1{
-      margin:0 0 20px;font-family:Georgia,"Noto Serif KR",serif;
-      color:var(--deep);font-size:clamp(2.6rem,6vw,5rem);line-height:1.12;
-      font-weight:500;
-    }
-    .hero p{font-size:1.08rem;color:var(--muted);max-width:550px}
-    .buttons{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
-    .btn{
-      padding:12px 20px;border-radius:30px;border:1px solid var(--sage);
-      font-size:.9rem;transition:.2s;
-    }
-    .btn.primary{background:var(--deep);color:white;border-color:var(--deep)}
-    .btn:hover{transform:translateY(-2px)}
-
-    /* Hero 이미지 스타일 */
-    .visual{
-      position:relative;
-      min-height:460px;
-      height: 100%;
-      max-height: 580px;
-      border-radius: 40px;
-      overflow:hidden;
-      box-shadow: 0 25px 50px -12px rgba(52, 68, 59, 0.2);
-    }
-    .visual img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transition: transform 0.5s ease;
-    }
-    .visual:hover img{
-      transform: scale(1.02);
+    :root {
+      --cream: #f7f3ea;
+      --paper: #fffdf8;
+      --sage: #8b9b83;
+      --deep: #34443b;
+      --terracotta: #c98262;
+      --line: #ded8cb;
+      --text: #3e403d;
+      --muted: #77766f;
+      --sun-gold: #f59e0b;
     }
 
-    section{padding:95px 0}
-    .section-title{text-align:center;margin-bottom:45px}
-    .section-title span{font-size:.75rem;letter-spacing:.18em;color:var(--terracotta)}
-    .section-title h2{font-family:Georgia,"Noto Serif KR",serif;color:var(--deep);font-size:2.2rem;font-weight:500;margin:8px 0}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      color: var(--text);
+      background-color: var(--cream);
+      font-family: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+    }
 
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{
-      background:var(--paper);padding:30px;border:1px solid var(--line);
-      border-radius:24px;min-height:220px;transition:.25s;
+    .font-serif-kr {
+      font-family: 'Maru Buri', Georgia, serif;
     }
-    .card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(60,60,50,.08)}
-    .icon{font-size:1.8rem;margin-bottom:12px}
-    .card h3{margin:0 0 8px;color:var(--deep);font-size:1.15rem}
-    .card p{margin:0;color:var(--muted);font-size:.92rem}
 
-    .quote{
-      background:var(--deep);color:#f6f1e7;text-align:center;
-      padding:80px 20px;
+    .font-handwriting {
+      font-family: 'Gaegu', cursive, sans-serif;
     }
-    .quote p{
-      font-family:Georgia,"Noto Serif KR",serif;font-size:clamp(1.5rem,3vw,2.3rem);
-      line-height:1.6;max-width:800px;margin:0 auto 18px;
-    }
-    .quote small{color:#cdd5ca}
 
-    .journal{
-      display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;
+    /* 부드러운 스크롤바 */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-    .journal-box{
-      background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:35px;
+    ::-webkit-scrollbar-track {
+      background: var(--cream);
     }
-    .journal-box h3{font-family:Georgia,serif;color:var(--deep);font-size:1.6rem;margin-top:0}
-    .journal-box ul{list-style:none;padding:0;margin:0}
-    .journal-box li{padding:12px 0;border-bottom:1px dashed var(--line);color:var(--muted)}
-    .journal-box li:last-child{border-bottom:0}
+    ::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 4px;
+    }
 
-    footer{padding:45px 0;text-align:center;color:var(--muted);font-size:.82rem}
-
-    @media(max-width:800px){
-      .menu{display:none}
-      .hero{grid-template-columns:1fr;padding:55px 0 70px;gap:35px}
-      .visual{min-height:360px}
-      .cards{grid-template-columns:1fr}
-      section{padding:70px 0}
-      .journal{grid-template-columns:1fr}
+    /* 카드 호버 부드러운 전환 */
+    .routine-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @media(max-width:480px){
-      .wrap{width:88%}
-      .hero p{font-size:1rem}
-      .visual{min-height:280px;border-radius:24px}
-      .section-title h2{font-size:1.8rem}
+    .routine-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -10px rgba(52, 68, 59, 0.12);
+    }
+
+    /* 체크박스 커스텀 애니메이션 */
+    .check-item input:checked + label {
+      text-decoration: line-through;
+      color: #9ca3af;
     }
   </style>
 </head>
-<body>
+<body class="selection:bg-amber-200 selection:text-emerald-950">
 
-<header>
-  <div class="wrap">
-    <nav>
-      <a class="logo" href="#">daily, gently.</a>
-      <div class="menu">
-        <a href="#about">나의 일상</a>
-        <a href="#routine">루틴</a>
-        <a href="#journal">기록</a>
-      </div>
-    </nav>
-  </div>
-</header>
+  <!-- 상단 네비게이션 바 -->
+  <header class="sticky top-0 z-40 bg-[#f7f3ea]/90 backdrop-blur-md border-b border-[#ded8cb]/80 transition-all">
+    <div class="max-w-6xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+      <a href="#" class="font-serif-kr text-xl md:text-2xl font-semibold tracking-wide text-[#34443b] flex items-center gap-2">
+        <span>daily, gently.</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-[#c98262]"></span>
+      </a>
 
-<main>
-  <section class="hero wrap" id="about">
-    <div>
-      <div class="eyebrow">A QUIET LIFE IN YONGIN</div>
-      <h1>오늘도,<br>나를 돌봅니다.</h1>
-      <p>
-        용인에서 천천히 살아가며<br>
-        몸과 마음을 건강하게 가꾸는 일상을 기록합니다.<br>
-        명상하고, 책을 읽고, 움직이고, 잘 먹는 것.<br>
-        거창하지 않아도 나를 위한 작은 루틴을 이어갑니다.
-      </p>
-      <div class="buttons">
-        <a class="btn primary" href="#routine">나의 루틴 보기</a>
-        <a class="btn" href="#journal">오늘의 기록</a>
-      </div>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-[#77766f]">
+        <a href="#about" class="hover:text-[#c98262] transition-colors">나의 일상</a>
+        <a href="#routine" class="hover:text-[#c98262] transition-colors">루틴</a>
+        <a href="#journal" class="hover:text-[#c98262] transition-colors">오늘의 기록</a>
+      </nav>
+
+      <a href="#journal" class="text-xs md:text-sm font-medium bg-[#34443b] text-[#f7f3ea] px-4 py-2 rounded-full hover:bg-[#25322b] transition-all shadow-sm">
+        오늘 체크인
+      </a>
     </div>
+  </header>
 
-    <!-- 첨부해주신 이미지가 반영된 Hero Visual 영역 -->
-    <div class="visual">
-      <img src="hero-image.png" alt="오늘도, 나를 돌봅니다 - 햇살 아래 따뜻한 차와 독서, 다이어리가 놓인 평온한 아침 일상">
-    </div>
-  </section>
+  <main>
+    <!-- HERO SECTION -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-12 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- 왼쪽: 텍스트 및 소개 -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#8b9b83]/20 text-[#34443b] text-xs tracking-wider font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#c98262]"></span>
+            A QUIET LIFE IN YONGIN
+          </div>
 
-  <section id="routine">
-    <div class="wrap">
-      <div class="section-title">
-        <span>MY SMALL ROUTINES</span>
-        <h2>나를 돌보는 여섯 가지</h2>
+          <h1 class="font-serif-kr text-4xl sm:text-5xl lg:text-6xl font-normal text-[#34443b] leading-[1.25]">
+            오늘도,<br>
+            <span class="relative inline-block font-semibold">
+              나를 돌봅니다.
+              <span class="absolute -bottom-1 left-0 w-full h-2 bg-[#ead6a7]/60 -z-10 rounded-full"></span>
+            </span>
+          </h1>
+
+          <p class="text-[#77766f] text-base md:text-lg leading-relaxed max-w-xl">
+            용인에서 천천히 살아가며 몸과 마음을 건강하게 가꾸는 일상을 기록합니다.<br class="hidden sm:inline">
+            명상하고, 책을 읽고, 부드럽게 움직이며, 온전한 한 끼를 챙기는 것.<br>
+            거창하지 않아도 나를 사랑하는 작은 루틴을 매일 이어갑니다.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#routine" class="px-6 py-3.5 rounded-full bg-[#34443b] text-[#f7f3ea] text-sm font-medium hover:bg-[#232e28] hover:-translate-y-0.5 transition-all shadow-md">
+              나의 6가지 루틴 보기
+            </a>
+            <a href="#journal" class="px-6 py-3.5 rounded-full border border-[#8b9b83] text-[#34443b] bg-[#fffdf8]/60 text-sm font-medium hover:bg-[#fffdf8] hover:-translate-y-0.5 transition-all">
+              오늘의 체크인 작성
+            </a>
+          </div>
+
+          <!-- 미니 상태 위젯 -->
+          <div class="pt-4 border-t border-[#ded8cb]/80 flex items-center gap-6 text-xs text-[#77766f]">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-500">☀️</span>
+              <span>맑고 따스한 아침 햇살</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-700">🍵</span>
+              <span>따뜻한 루이보스 티타임</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 오른쪽: 업로드해주신 그림을 풍성하게 시각화한 비주얼 카드 -->
+        <div class="lg:col-span-6">
+          <div class="relative group rounded-[36px] overflow-hidden bg-gradient-to-br from-[#fed7aa] via-[#fef3c7] to-[#bbf7d0] p-1.5 shadow-2xl transition-all duration-500 hover:shadow-amber-900/10">
+            
+            <div class="relative w-full rounded-[32px] overflow-hidden bg-white/70 backdrop-blur-sm border border-white/60 shadow-inner">
+              
+              <!-- 아침 호수 & 햇살 배경 일러스트 -->
+              <div class="relative h-[480px] sm:h-[530px] w-full overflow-hidden flex flex-col justify-between p-6 md:p-8">
+                
+                <!-- 하늘 & 햇살 글로우 이펙트 -->
+                <div class="absolute inset-0 bg-gradient-to-b from-[#fcd34d]/35 via-[#fed7aa]/30 to-[#fbf8f2] -z-10"></div>
+                <div class="absolute -top-16 -right-16 w-64 h-64 bg-amber-300/40 rounded-full blur-3xl -z-10"></div>
+                <div class="absolute top-1/4 -left-10 w-48 h-48 bg-emerald-200/40 rounded-full blur-2xl -z-10"></div>
+
+                <!-- 상단: 따뜻한 캘리그래피 타이틀 (# 오늘도, 나를 돌봅니다. 💛) -->
+                <div class="flex justify-between items-start">
+                  <div class="bg-white/85 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-sm border border-white/70">
+                    <span class="font-handwriting text-2xl md:text-3xl font-bold text-[#b45309]"># 오늘도, 나를 돌봅니다.</span>
+                    <span class="inline-block text-xl ml-1 text-amber-500">💛</span>
+                  </div>
+
+                  <!-- 텀블러 배지: SMALL STEPS BIG CHANGES -->
+                  <div class="bg-white/90 backdrop-blur-md px-3 py-2 rounded-2xl border border-amber-100 shadow-sm text-center">
+                    <span class="block text-[9px] font-bold tracking-widest text-[#77766f] uppercase">Small Steps</span>
+                    <span class="block text-[10px] font-extrabold text-[#34443b] tracking-wider uppercase">Big Changes</span>
+                    <span class="text-[10px] text-amber-600">♥</span>
+                  </div>
+                </div>
+
+                <!-- 중앙: 수평선 호수 풍경과 책 더미 그래픽 요소 -->
+                <div class="my-auto py-4 relative">
+                  <div class="grid grid-cols-2 gap-4 items-center">
+                    
+                    <!-- 책 더미 표현 -->
+                    <div class="space-y-1.5 transform -rotate-1 transition-transform group-hover:rotate-0 duration-300">
+                      <div class="bg-[#f5f0e5] border-l-4 border-emerald-600 px-3 py-1.5 rounded shadow-sm text-[11px] font-serif-kr text-[#34443b] flex items-center justify-between">
+                        <span>Healthy Life</span>
+                        <span class="text-[10px] text-emerald-600">🌿</span>
+                      </div>
+                      <div class="bg-[#dcfce7] border-l-4 border-emerald-700 px-3 py-1.5 rounded shadow-sm text-[11px] font-serif-kr text-[#34443b] flex items-center justify-between">
+                        <span>Mind & Body</span>
+                        <span class="text-[10px] text-emerald-700">🌱</span>
+                      </div>
+                      <div class="bg-[#fef9c3] border-l-4 border-amber-600 px-3 py-1.5 rounded shadow-sm text-[11px] font-serif-kr text-[#34443b] flex items-center justify-between">
+                        <span>Better Me</span>
+                        <span class="text-[10px] text-amber-600">✨</span>
+                      </div>
+                      <div class="bg-[#fee2e2] border-l-4 border-rose-500 px-3 py-1.5 rounded shadow-sm text-[11px] font-serif-kr text-[#34443b] flex items-center justify-between">
+                        <span>Good Day</span>
+                        <span class="text-[10px] text-rose-500">🌸</span>
+                      </div>
+                    </div>
+
+                    <!-- 따뜻한 티잔 & 카모마일 꽃 -->
+                    <div class="flex flex-col items-center justify-center text-center">
+                      <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-amber-200 via-amber-100 to-white/90 border-4 border-white shadow-lg flex items-center justify-center relative">
+                        <span class="text-3xl md:text-4xl animate-pulse">🍵</span>
+                        <span class="absolute -bottom-2 -right-1 text-xl">🌼</span>
+                      </div>
+                      <span class="mt-2 text-[11px] font-medium text-[#77766f]">따뜻한 찻잔과 들꽃</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- 하단: 실제 체크해볼 수 있는 아침 다이어리 노트 -->
+                <div class="bg-[#fffdf8]/95 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-amber-200/70 shadow-md">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-handwriting text-lg font-bold text-[#34443b] flex items-center gap-1.5">
+                      <span>✍️</span> 아침의 다짐 노트
+                    </span>
+                    <span class="text-[11px] text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded-full font-medium">직접 체크해 보세요</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 text-xs font-handwriting text-base text-[#3e403d]">
+                    <label class="flex items-center gap-2 cursor-pointer select-none group/item">
+                      <input type="checkbox" checked class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 accent-[#c98262]">
+                      <span class="transition-colors group-hover/item:text-[#c98262]">건강한 몸</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer select-none group/item">
+                      <input type="checkbox" checked class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 accent-[#c98262]">
+                      <span class="transition-colors group-hover/item:text-[#c98262]">평온한 마음</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer select-none group/item">
+                      <input type="checkbox" checked class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 accent-[#c98262]">
+                      <span class="transition-colors group-hover/item:text-[#c98262]">행복한 일상</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer select-none group/item">
+                      <input type="checkbox" checked class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 accent-[#c98262]">
+                      <span class="transition-colors group-hover/item:text-[#c98262]">나를 더 사랑하기</span>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 하단 캡션 안내 -->
+            <div class="px-4 py-2 flex items-center justify-between text-[11px] text-[#77766f]">
+              <span>🌅 용인의 잔잔한 호수 뷰 &amp; 아침 루틴</span>
+              <span class="text-amber-700 font-medium">Gentle Morning</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <div class="cards">
-        <article class="card">
-          <div class="icon">🌿</div>
-          <h3>명상</h3>
-          <p>잠시 멈추고 호흡을 바라보며 마음을 정돈합니다.</p>
-        </article>
-        <article class="card">
-          <div class="icon">📖</div>
-          <h3>독서</h3>
-          <p>좋은 문장을 만나고 새로운 생각을 천천히 받아들입니다.</p>
-        </article>
-        <article class="card">
-          <div class="icon">✍️</div>
-          <h3>필사</h3>
-          <p>마음에 닿은 문장을 손으로 옮기며 생각을 깊게 합니다.</p>
-        </article>
-        <article class="card">
-          <div class="icon">🏊</div>
-          <h3>수영</h3>
-          <p>물속에서 몸을 움직이며 머릿속의 복잡함을 흘려보냅니다.</p>
-        </article>
-        <article class="card">
-          <div class="icon">🧘</div>
-          <h3>필라테스</h3>
-          <p>호흡과 자세에 집중하며 몸의 균형을 다시 맞춥니다.</p>
-        </article>
-        <article class="card">
-          <div class="icon">🥗</div>
-          <h3>건강한 음식</h3>
-          <p>채소와 식물성 재료를 중심으로 건강하고 편안한 한 끼를 만듭니다.</p>
-        </article>
+    <!-- ROUTINE SECTION: 6가지 루틴 -->
+    <section id="routine" class="py-20 bg-[#fffdf8]/60 border-y border-[#ded8cb]/80">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="text-center max-w-xl mx-auto mb-14 space-y-2">
+          <span class="text-xs font-bold tracking-[0.2em] text-[#c98262] uppercase">My Small Routines</span>
+          <h2 class="font-serif-kr text-3xl md:text-4xl text-[#34443b] font-medium">나를 돌보는 여섯 가지</h2>
+          <p class="text-sm text-[#77766f]">무리하지 않고, 나의 속도대로 차분하게 채워가는 매일의 시간</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- 카드 1: 명상 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-800 text-2xl flex items-center justify-center mb-4">
+                🌿
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">명상</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                잠시 멈추고 호흡을 바라보며 복잡했던 생각의 파도를 잔잔하게 정돈합니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>매일 아침 10분</span>
+              <span>호흡과 이완</span>
+            </div>
+          </article>
+
+          <!-- 카드 2: 독서 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-800 text-2xl flex items-center justify-center mb-4">
+                📖
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">독서</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                좋은 문장을 만나고 새로운 시선을 받아들이며 내면의 뜰을 풍성하게 가꿉니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>하루 20페이지</span>
+              <span>영감과 사유</span>
+            </div>
+          </article>
+
+          <!-- 카드 3: 필사 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-orange-50 text-orange-800 text-2xl flex items-center justify-center mb-4">
+                ✍️
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">필사</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                마음에 와닿은 문장을 손끝으로 꾹꾹 눌러 담으며 깊은 여운을 마음에 새깁니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>만년필과 노트</span>
+              <span>기억의 저장</span>
+            </div>
+          </article>
+
+          <!-- 카드 4: 수영 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-800 text-2xl flex items-center justify-center mb-4">
+                🏊
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">수영</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                물속에서 몸을 온전히 움직이며 머릿속의 복잡함과 무거운 긴장을 부드럽게 흘려보냅니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>주 3회 자유영</span>
+              <span>신체 활력</span>
+            </div>
+          </article>
+
+          <!-- 카드 5: 필라테스 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-800 text-2xl flex items-center justify-center mb-4">
+                🧘
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">필라테스</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                깊은 코어 호흡과 정렬된 자세에 집중하며 무너진 몸의 균형을 바르게 회복합니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>코어 &amp; 척추 정렬</span>
+              <span>바른 자세</span>
+            </div>
+          </article>
+
+          <!-- 카드 6: 건강한 음식 -->
+          <article class="routine-card bg-[#fffdf8] p-7 rounded-3xl border border-[#ded8cb] flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-lime-50 text-lime-800 text-2xl flex items-center justify-center mb-4">
+                🥗
+              </div>
+              <h3 class="font-serif-kr text-xl text-[#34443b] font-medium mb-2">건강한 음식</h3>
+              <p class="text-sm text-[#77766f] leading-relaxed">
+                신선한 채소와 정갈한 식재료를 중심으로 속이 편안하고 맑아지는 한 끼를 손수 만듭니다.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#ded8cb]/50 flex items-center justify-between text-xs text-[#8b9b83] font-medium">
+              <span>자연 식재료 식단</span>
+              <span>가벼운 속</span>
+            </div>
+          </article>
+
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="quote">
-    <p>“잘 살아가는 것은<br>나를 잘 돌보는 것에서 시작된다.”</p>
-    <small>오늘의 작은 선택이 내일의 삶을 만듭니다.</small>
-  </div>
-
-  <section id="journal">
-    <div class="wrap journal">
-      <div>
-        <div class="eyebrow">MY JOURNAL</div>
-        <h2 style="font-family:Georgia,'Noto Serif KR',serif;color:var(--deep);font-size:2.4rem;font-weight:500;">
-          완벽한 하루보다<br>나에게 다정한 하루
-        </h2>
-        <p style="color:var(--muted);">
-          매일 모든 것을 잘할 필요는 없다고 생각합니다.
-          책 한 페이지, 10분의 호흡, 한 끼의 건강한 음식처럼
-          작지만 분명한 나만의 순간을 모아갑니다.
+    <!-- QUOTE BANNER -->
+    <section class="bg-[#34443b] text-[#f7f3ea] py-20 px-6 text-center relative overflow-hidden">
+      <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      
+      <div class="max-w-3xl mx-auto relative z-10 space-y-4">
+        <span class="text-2xl text-amber-300 font-handwriting">“</span>
+        <blockquote class="font-serif-kr text-2xl sm:text-3xl md:text-4xl font-normal leading-snug">
+          잘 살아가는 것은<br>
+          <span class="text-amber-200">나를 잘 돌보는 것</span>에서 시작된다.
+        </blockquote>
+        <p class="text-sm sm:text-base text-[#cdd5ca] font-light pt-2">
+          오늘의 작은 선택과 다정한 보살핌이 내일의 건강한 삶을 완성합니다.
         </p>
       </div>
+    </section>
 
-      <div class="journal-box">
-        <h3>오늘의 체크인</h3>
-        <ul>
-          <li>☐ 숨을 깊게 쉬었나요?</li>
-          <li>☐ 몸을 기분 좋게 움직였나요?</li>
-          <li>☐ 마음에 남는 문장을 만났나요?</li>
-          <li>☐ 나를 위한 한 끼를 먹었나요?</li>
-          <li>☐ 오늘의 나에게 다정했나요?</li>
-        </ul>
+    <!-- JOURNAL & CHECKLIST SECTION -->
+    <section id="journal" class="py-20 max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- 왼쪽 설명 -->
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c98262]/15 text-[#c98262] text-xs tracking-wider font-semibold">
+            MY JOURNAL
+          </div>
+
+          <h2 class="font-serif-kr text-3xl sm:text-4xl text-[#34443b] font-medium leading-tight">
+            완벽한 하루보다<br>
+            나에게 다정한 하루
+          </h2>
+
+          <p class="text-[#77766f] text-base leading-relaxed">
+            매일 모든 계획을 완벽하게 해낼 필요는 없습니다.<br>
+            책 한 줄을 음미한 시간, 10분의 고요한 호흡, 속 편한 식사 한 끼처럼 
+            작지만 스스로를 소중히 여긴 순간들을 하나씩 모아갑니다.
+          </p>
+
+          <div class="bg-[#fffdf8] p-5 rounded-2xl border border-[#ded8cb] flex items-center gap-4">
+            <div class="text-3xl">☕️</div>
+            <div class="text-xs text-[#77766f]">
+              <strong class="text-sm text-[#34443b] block mb-0.5">우정의 라이프 팁</strong>
+              마음이 분주해질 때는 창밖을 3분 동안 바라보며 온수를 세 모금 천천히 마셔보세요.
+            </div>
+          </div>
+        </div>
+
+        <!-- 오른쪽 대화형 체크인 박스 -->
+        <div class="lg:col-span-6">
+          <div class="bg-[#fffdf8] border border-[#ded8cb] rounded-[32px] p-7 md:p-9 shadow-xl relative overflow-hidden">
+            
+            <div class="flex items-center justify-between pb-5 border-b border-[#ded8cb]">
+              <div>
+                <h3 class="font-serif-kr text-2xl text-[#34443b] font-semibold">오늘의 셀프 체크인</h3>
+                <p class="text-xs text-[#77766f] mt-1">오늘 하루, 나를 다정하게 보살폈나요?</p>
+              </div>
+              <span id="check-counter" class="text-xs font-bold px-3 py-1.5 rounded-full bg-[#8b9b83]/20 text-[#34443b]">
+                0 / 5 완료
+              </span>
+            </div>
+
+            <ul class="divide-y divide-[#ded8cb]/60 py-2" id="checklist-container">
+              <li class="py-3.5 flex items-center gap-3 check-item">
+                <input type="checkbox" id="c1" class="w-5 h-5 rounded accent-[#34443b] cursor-pointer">
+                <label for="c1" class="text-sm text-[#3e403d] cursor-pointer select-none transition-colors">
+                  숨을 깊게 들이쉬고 천천히 내쉬었나요?
+                </label>
+              </li>
+              <li class="py-3.5 flex items-center gap-3 check-item">
+                <input type="checkbox" id="c2" class="w-5 h-5 rounded accent-[#34443b] cursor-pointer">
+                <label for="c2" class="text-sm text-[#3e403d] cursor-pointer select-none transition-colors">
+                  몸을 기분 좋을 만큼 가볍게 움직였나요?
+                </label>
+              </li>
+              <li class="py-3.5 flex items-center gap-3 check-item">
+                <input type="checkbox" id="c3" class="w-5 h-5 rounded accent-[#34443b] cursor-pointer">
+                <label for="c3" class="text-sm text-[#3e403d] cursor-pointer select-none transition-colors">
+                  마음에 깊이 남는 문장 하나를 마주했나요?
+                </label>
+              </li>
+              <li class="py-3.5 flex items-center gap-3 check-item">
+                <input type="checkbox" id="c4" class="w-5 h-5 rounded accent-[#34443b] cursor-pointer">
+                <label for="c4" class="text-sm text-[#3e403d] cursor-pointer select-none transition-colors">
+                  속이 편안해지는 나를 위한 한 끼를 먹었나요?
+                </label>
+              </li>
+              <li class="py-3.5 flex items-center gap-3 check-item">
+                <input type="checkbox" id="c5" class="w-5 h-5 rounded accent-[#34443b] cursor-pointer">
+                <label for="c5" class="text-sm text-[#3e403d] cursor-pointer select-none transition-colors">
+                  오늘 실수하거나 지쳤을 때 나에게 다정했나요?
+                </label>
+              </li>
+            </ul>
+
+            <!-- 완료 축하 피드백 배너 -->
+            <div id="cheer-message" class="hidden mt-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-center text-xs text-amber-900 font-medium animate-fade-in">
+              💛 오늘 하루도 나를 훌륭하게 돌보셨네요! 따뜻하고 편안한 밤 보내세요.
+            </div>
+
+            <div class="mt-6 flex justify-end">
+              <button id="reset-checks-btn" class="text-xs text-[#77766f] hover:text-[#c98262] underline transition-colors">
+                체크리스트 초기화
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#f7f3ea] border-t border-[#ded8cb] py-12 text-center text-[#77766f] text-xs space-y-2">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="font-serif-kr text-base text-[#34443b] font-medium tracking-wide">
+        daily, gently. · Yongin, Korea
+      </div>
+      <p class="text-[11px] text-[#77766f]/80">
+        나를 온전히 돌보는 고요하고 다정한 일상을 기록합니다.
+      </p>
+      <div class="pt-4 text-[10px] text-[#77766f]/60">
+        © 2026 Woojung's Life Note. All rights reserved.
       </div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer>
-  <div class="wrap">
-    daily, gently. · Yongin, Korea<br>
-    <span>나를 돌보는 일상을 기록합니다.</span>
-  </div>
-</footer>
+  <!-- 체크박스 인터랙션 스크립트 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('checklist-container');
+      const counter = document.getElementById('check-counter');
+      const cheer = document.getElementById('cheer-message');
+      const resetBtn = document.getElementById('reset-checks-btn');
+      
+      if (!container) return;
+      const checkboxes = container.querySelectorAll('input[type="checkbox"]');
 
+      function updateCounter() {
+        let checkedCount = 0;
+        checkboxes.forEach(cb => {
+          if (cb.checked) checkedCount++;
+        });
+
+        counter.textContent = `${checkedCount} / ${checkboxes.length} 완료`;
+
+        if (checkedCount === checkboxes.length) {
+          cheer.classList.remove('hidden');
+          counter.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-amber-200 text-amber-900 shadow-sm";
+        } else {
+          cheer.classList.add('hidden');
+          counter.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-[#8b9b83]/20 text-[#34443b]";
+        }
+      }
+
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateCounter);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          checkboxes.forEach(cb => cb.checked = false);
+          updateCounter();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
